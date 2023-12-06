@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "46711317682",
+    "project_id": "swiftchat-c7feb",
+    "storage_bucket": "swiftchat-c7feb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46711317682:android:5d9355d502f51a6a4155ab",
+        "android_client_info": {
+          "package_name": "com.example.swift_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmutDRhlGrQPq-rAdiy3IU2O21QYMvktc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
