@@ -91,7 +91,7 @@ class _GirisEkraniState extends State<GirisEkrani> {
                           Text("Hesabınız yok mu? "),
                           GestureDetector(
                             onTap: () {
-                              // Navigator.pushNamed(context, "/");//HesapOlusturmaEkrani daha sonra olusturacagim
+                              Navigator.pushNamed(context, "/HesapOlusturmaEkrani");
                             },
                             child: Text(
                               " Hesap oluştur",
