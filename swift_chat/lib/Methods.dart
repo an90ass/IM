@@ -1,3 +1,4 @@
+// ignore_for_file: unused_import, avoid_print, file_names, no_leading_underscores_for_local_identifiers
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,11 @@ Future<User?> createAccount(String ad, String email, String password) async {
       print("hesap olusturma aninda hata olustu");
       return null;   
     }
-  } catch (e) {
-    print(e);
-    return null; 
-  }
+  }  catch (e) {
+  print(e);
+  return null;
+}
+
 }
 
 

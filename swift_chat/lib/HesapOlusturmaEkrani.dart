@@ -121,6 +121,7 @@ class _HesapOlusturmaEkraniState extends State<HesapOlusturmaEkrani> {
             _password.text.isNotEmpty) {
           setState(() {
             isLoading = true;
+
           });
 
           createAccount(_name.text, _email.text, _password.text).then((user) {

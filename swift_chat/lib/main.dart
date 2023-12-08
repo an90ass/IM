@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -7,7 +9,11 @@ import 'package:swift_chat/HesapOlusturmaEkrani.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  Platform.isAndroid ?
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(apiKey: 'AIzaSyAYPRJsHnzptJfc5Qppbqj42EwUbjXg_10', appId: '1:780337687423:android:12df8956999764fd6bc84a', messagingSenderId: '780337687423', projectId: 'swiftchat-e622c')
+  )
+  :  await Firebase.initializeApp();
   runApp( const MyApp());
 }
 class MyApp extends StatelessWidget {
