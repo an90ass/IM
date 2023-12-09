@@ -1,8 +1,11 @@
 
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:swift_chat/AnaEkran.dart';
 
 import 'package:swift_chat/GirisEkrani.dart';
 import 'package:swift_chat/HesapOlusturmaEkrani.dart'; 
@@ -28,6 +31,8 @@ class MyApp extends StatelessWidget {
      routes:{
       "/" :(context) =>  GirisEkrani(),
       "/HesapOlusturmaEkrani" :(context) =>  HesapOlusturmaEkrani(),
+      "/AnaEkran" :(context) =>  AnaEkran(),
+
 
 
      },

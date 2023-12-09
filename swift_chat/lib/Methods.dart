@@ -2,6 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:swift_chat/AnaEkran.dart';
+import 'package:swift_chat/GirisEkrani.dart';
 Future<User?> createAccount(String ad, String email, String password) async {
   FirebaseAuth _auth = FirebaseAuth.instance;
   try {
@@ -21,6 +23,42 @@ Future<User?> createAccount(String ad, String email, String password) async {
   return null;
 }
 
+}
+Future<User?> logIn(String email, String password) async {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  try {
+    UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    User? user = userCredential.user;
+
+    if (user != null) {
+      print("basarli giris islemi");
+      return user;
+    } else {
+      print("giris yapma isleminde  hata olustu");
+      return null;
+    }
+  } catch (e) {
+    print(e);
+    return null;
+  }
+}
+
+
+
+Future logOut(BuildContext context) async {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  try {
+    await _auth.signOut().then((value){
+  Navigator.push(context,  MaterialPageRoute(builder: (_) => GirisEkrani())); // cikis islemi yaptikten sonra giris ekranina geri don
+    });
+
+  } catch (e) {
+    print("hata");
+  }
 }
 
 

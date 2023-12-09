@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, sized_box_for_whitespace, use_key_in_widget_constructors, library_private_types_in_public_api, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:swift_chat/AnaEkran.dart';
 import 'package:swift_chat/Methods.dart';
 
 class HesapOlusturmaEkrani extends StatefulWidget {
@@ -129,8 +130,9 @@ class _HesapOlusturmaEkraniState extends State<HesapOlusturmaEkrani> {
               setState(() {
                 isLoading = false;
               });
-              // Navigator.push(
-              //     context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                   Navigator.push(context, MaterialPageRoute(builder:(_) => AnaEkran()));
+
+         
               print("Hesap basarı ile oluşturuldu");
             } else {
               print("oluşturmada hata");

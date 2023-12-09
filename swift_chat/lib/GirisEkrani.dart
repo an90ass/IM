@@ -1,6 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, sized_box_for_whitespace, use_key_in_widget_constructors, library_private_types_in_public_api
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, sized_box_for_whitespace, use_key_in_widget_constructors, library_private_types_in_public_api, avoid_print, unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
+import 'package:swift_chat/AnaEkran.dart';
+import 'package:swift_chat/Methods.dart';
 
 class GirisEkrani extends StatefulWidget {
   @override
@@ -128,20 +130,47 @@ class _GirisEkraniState extends State<GirisEkrani> {
   }
 
   Widget customButton(Size size) {
-    return Container(
-      height: size.height / 14,
-      width: size.width / 1.2,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.blue,
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        "Giriş yap",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: (){
+        if(_email.text.isNotEmpty &&_password.text.isNotEmpty){
+          setState(() {
+            isLoading = true;
+          });
+          logIn(_email.text, _password.text).then((user){ // metottan gelen user bilgileri
+              if(user != Null){ //  metot user bilgileri dondurdu ise demeki login islemi basardi
+                      print("giris islemi basaridi");
+                      setState(() {
+                        isLoading = false;
+                      });
+                        Navigator.push(context, MaterialPageRoute(builder:(_) => AnaEkran()));
+              }//if 
+              else{
+                print("giris islemi basarsiz");
+                setState(() {
+                  isLoading = false;
+                });
+              }
+          });
+
+        }else{
+          print("lutfen alanlari doldurun");
+        }
+      },
+      child: Container(
+        height: size.height / 14,
+        width: size.width / 1.2,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.blue,
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          "Giriş yap",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
