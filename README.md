@@ -3,4 +3,7 @@
 ![WhatsApp Image 2023-12-08 at 1 05 48 AM](https://github.com/an90ass/Guz2023_BSM307_BM_GrupNo/assets/91754070/cb4deff4-bb6e-455e-8ce2-544208879dda)
 
 # Hesap oluşturma sayfası
-![WhatsApp Image 2023-12-08 at 5 29 34 AM](https://github.com/an90ass/Guz2023_BSM307_BM_GrupNo/assets/91754070/6b5fbafb-fa9c-430c-8ae3-98f80a8bafd4)
+![WhatsApp Image 2023-12-08 at 5 29 34 AM](https://github.com/an90ass/Guz2023_BSM307_BM_GrupNo/assets/91754070/6b5fbafb-fa9c-430c-8ae3-98f80a8bafd4
+
+# Ana ekran ve arama islemi
+![WhatsApp Image 2023-12-10 at 6 19 23 AM (1)](https://github.com/an90ass/Guz2023_BSM307_BM_GrupNo/assets/91754070/00f0e495-ef66-4d0f-a653-955378fe5809)
