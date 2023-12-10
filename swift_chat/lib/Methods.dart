@@ -1,11 +1,13 @@
 // ignore_for_file: unused_import, avoid_print, file_names, no_leading_underscores_for_local_identifiers
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_chat/AnaEkran.dart';
 import 'package:swift_chat/GirisEkrani.dart';
 Future<User?> createAccount(String ad, String email, String password) async {
   FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
   try {
     User? user = (await _auth.createUserWithEmailAndPassword(
             email: email,
@@ -13,6 +15,12 @@ Future<User?> createAccount(String ad, String email, String password) async {
         .user;
     if (user != null) {
       print("Basarli bir sekilde hesap olusturuldu ");
+      await _firestore.collection('users').doc(_auth.currentUser?.uid).set({
+      "name": ad,
+      "email": email,
+      "status": "Unavalible",
+        
+    });
       return user;
     } else {
       print("hesap olusturma aninda hata olustu");
