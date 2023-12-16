@@ -133,7 +133,7 @@ class _HesapOlusturmaEkraniState extends State<HesapOlusturmaEkrani> {
                    Navigator.push(context, MaterialPageRoute(builder:(_) => AnaEkran()));
 
          
-              print("Hesap basarı ile oluşturuldu");
+              // print("Hesap basarı ile oluşturuldu");
             } else {
               print("oluşturmada hata");
               setState(() {

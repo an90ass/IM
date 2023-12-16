@@ -1,17 +1,13 @@
 // ignore_for_file: prefer_const_constructors, unused_import, sized_box_for_whitespace, unused_field, no_leading_underscores_for_local_identifiers, unused_local_variable, avoid_print, file_names, unnecessary_string_interpolations, prefer_const_literals_to_create_immutables
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_chat/GirisEkrani.dart';
 import 'package:swift_chat/Methods.dart';
-<<<<<<< Updated upstream
 import 'package:swift_chat/SohbetOdasi.dart';
-=======
->>>>>>> Stashed changes
 
 class AnaEkran extends StatefulWidget {
-  const AnaEkran({super.key});
+  const AnaEkran({Key? key}) : super(key: key);
 
   @override
   State<AnaEkran> createState() => _AnaEkranState();
@@ -24,19 +20,17 @@ class _AnaEkranState extends State<AnaEkran> {
   bool isLoading = false;
   final TextEditingController _search = TextEditingController();
 
-  String chatRoomId(String user1, String user2) {
+   String chatRoomId(String user1, String user2) {
     if (user1[0].toLowerCase().codeUnits[0] >
         user2.toLowerCase().codeUnits[0]) {
       return "$user1$user2";
     } else {
       return "$user2$user1";
-    }
+    
+   }
   }
 
   void onSearch() async {
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-
     setState(() {
       isLoading = true;
     });
@@ -50,7 +44,6 @@ class _AnaEkranState extends State<AnaEkran> {
         if (value.docs.isNotEmpty) {
           userMap = value.docs[0].data();
         } else {
-          // Handle the case when no matching document is found
           userMap = null;
         }
         isLoading = false;
@@ -63,36 +56,20 @@ class _AnaEkranState extends State<AnaEkran> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-<<<<<<< Updated upstream
     return Scaffold(
-      appBar: AppBar(title: Text("Ana Sayfa")),
-      body: isLoading
-          ? Center(
-=======
-    return  Scaffold(
-      appBar: AppBar(title: Text("Ana Sayfa"),  actions: [
-        IconButton(
-  icon: Icon(Icons.logout),
-  onPressed: () {
-    // Çıkış işlemi gerçekleştikten sonra giriş ekranına geri dön
-    Navigator.pop(context, MaterialPageRoute(builder: (_) => GirisEkrani()));
-  },
-),
-          
+      appBar: AppBar(
+        title: Text("Ana Sayfa"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              Navigator.pop(context, MaterialPageRoute(builder: (_) => GirisEkrani()));
+            },
+          ),
         ],
       ),
-      body: isLoading?Center(child: Container(
-        height: size.height/20,
-        width: size.width/20,
-        child: CircularProgressIndicator(),
-      ),): Column(children: [
-            SizedBox(
-                height: size.height/20,//ekran ustunden
-            ),
-            Container(
-              height: size.height/14,
-              width: size.width,
->>>>>>> Stashed changes
+      body: isLoading
+          ? Center(
               child: Container(
                 height: size.height / 20,
                 width: size.width / 20,
@@ -102,7 +79,7 @@ class _AnaEkranState extends State<AnaEkran> {
           : Column(
               children: [
                 SizedBox(
-                  height: size.height / 20, //ekran ustunden
+                  height: size.height / 20,
                 ),
                 Container(
                   height: size.height / 14,
@@ -137,19 +114,19 @@ class _AnaEkranState extends State<AnaEkran> {
                 if (userMap != null)
                   ListTile(
                     onTap: () {
-                      String currentUserDisplayName =
-                          _auth.currentUser?.displayName ?? "DefaultName";
-                      String rootId = chatRoomId(currentUserDisplayName,
-                          userMap?['name'] ?? "DefaultName");
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => SohbetOdasi(
-                            chatRoomId: rootId,
-                            userMap: userMap,
-                          ),
-                        ),
-                      );
-                    },
+                          String roomId = chatRoomId(
+                              _auth.currentUser!.displayName!,
+                              userMap!['name']);
+
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => SohbetOdasi(
+                                chatRoomId: roomId,
+                                userMap: userMap!,
+                              ),
+                            ),
+                          );
+                        },
                     leading: Icon(
                       Icons.account_box,
                       color: Colors.black,
@@ -168,7 +145,7 @@ class _AnaEkranState extends State<AnaEkran> {
                     ),
                   )
                 else
-                  Container()
+                  Container(),
               ],
             ),
     );

@@ -9,29 +9,28 @@ Future<User?> createAccount(String ad, String email, String password) async {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   try {
-    User? user = (await _auth.createUserWithEmailAndPassword(
-            email: email,
-            password: password))
-        .user;
-    if (user != null) {
-      print("Basarli bir sekilde hesap olusturuldu ");
-      await _firestore.collection('users').doc(_auth.currentUser?.uid).set({
+    UserCredential userCrendetial = await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+
+    print("Account created Succesfull");
+
+    userCrendetial.user!.updateDisplayName(ad);// fark
+
+    await _firestore.collection('users').doc(_auth.currentUser!.uid).set({
       "name": ad,
       "email": email,
       "status": "Unavalible",
-        
+      "uid": _auth.currentUser!.uid,
     });
-      return user;
-    } else {
-      print("hesap olusturma aninda hata olustu");
-      return null;   
-    }
-  }  catch (e) {
-  print(e);
-  return null;
+
+      // print(userCrendetial?.user);
+    return userCrendetial.user;
+  } catch (e) {
+    print(e);
+    return null;
+  }
 }
 
-}
 Future<User?> logIn(String email, String password) async {
   FirebaseAuth _auth = FirebaseAuth.instance;
   try {
