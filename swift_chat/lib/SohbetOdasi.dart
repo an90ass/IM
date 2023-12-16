@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, sized_box_for_whitespace, file_names, unused_field, prefer_const_constructors
+// ignore_for_file: unused_import, sized_box_for_whitespace, file_names, unused_field, prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,8 +16,6 @@ class SohbetOdasi extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-
-   
   void onSendMessage() async {
     if (_message.text.isNotEmpty) {
       Map<String, dynamic> messages = {
@@ -27,7 +25,7 @@ class SohbetOdasi extends StatelessWidget {
         "time": FieldValue.serverTimestamp(),
       };
 
-      _message.clear();// baska bir messaj ayni anda gelebilir
+      _message.clear(); // baska bir messaj ayni anda gelebilir
       await _firestore
           .collection('chatroom')
           .doc(chatRoomId)
@@ -45,7 +43,28 @@ class SohbetOdasi extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         // ignore: prefer_const_constructors
-        title: Text(userMap?['name']),
+
+        title: StreamBuilder<DocumentSnapshot>(
+          stream:
+              _firestore.collection("users").doc(userMap?['uid']).snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.data != null) {
+              return Container(
+                child: Column(
+                  children: [
+                    Text(userMap?['name']),
+                    Text(
+                      snapshot.data!['status'],
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return Container();
+            }
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -53,7 +72,7 @@ class SohbetOdasi extends StatelessWidget {
             Container(
               height: size.height / 1.25,
               width: size.width,
-               child: StreamBuilder<QuerySnapshot>(
+              child: StreamBuilder<QuerySnapshot>(
                 stream: _firestore
                     .collection('chatroom')
                     .doc(chatRoomId)
@@ -102,7 +121,10 @@ class SohbetOdasi extends StatelessWidget {
                       ),
                     ),
                     // ignore: prefer_const_constructors
-                    IconButton(icon: Icon(Icons.send),color: Colors.blue, onPressed:  onSendMessage),
+                    IconButton(
+                        icon: Icon(Icons.send),
+                        color: Colors.blue,
+                        onPressed: onSendMessage),
                   ],
                 ),
               ),
@@ -112,30 +134,29 @@ class SohbetOdasi extends StatelessWidget {
       ),
     );
   }
-            Widget messages(Size size,Map <String,dynamic> map){
-              return Container(
-            width: size.width,
-            alignment: map['sendby'] == _auth.currentUser!.displayName
-                ? Alignment.centerRight
-                : Alignment.centerLeft,
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 12,horizontal: 14),
-                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-                  decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.blue,
-              ),
-              child: Text(
-                map['message'],
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-                ),
-                ),
-                
-              );
-            }
 
+  Widget messages(Size size, Map<String, dynamic> map) {
+    return Container(
+      width: size.width,
+      alignment: map['sendby'] == _auth.currentUser!.displayName
+          ? Alignment.centerRight
+          : Alignment.centerLeft,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 14),
+        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.blue,
+        ),
+        child: Text(
+          map['message'],
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
 }

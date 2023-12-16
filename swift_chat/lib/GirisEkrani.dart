@@ -31,7 +31,8 @@ class _GirisEkraniState extends State<GirisEkrani> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: size.height / 20, // Ekranın üst kısmında boşluk bırak
+                    height:
+                        size.height / 20, // Ekranın üst kısmında boşluk bırak
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
@@ -71,7 +72,8 @@ class _GirisEkraniState extends State<GirisEkrani> {
                     alignment: Alignment.center,
                     child: field(size, "email", Icons.account_box, _email),
                   ),
-                  Padding( // email text ve password text arasinda bosluk birak
+                  Padding(
+                    // email text ve password text arasinda bosluk birak
                     padding: const EdgeInsets.symmetric(vertical: 18.0),
                     child: Container(
                       width: size.width,
@@ -93,11 +95,14 @@ class _GirisEkraniState extends State<GirisEkrani> {
                           Text("Hesabınız yok mu? "),
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, "/HesapOlusturmaEkrani");
+                              Navigator.pushNamed(
+                                  context, "/HesapOlusturmaEkrani");
                             },
                             child: Text(
                               " Hesap oluştur",
-                              style: TextStyle(fontWeight: FontWeight.w700, color: Colors.blue),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.blue),
                             ),
                           ),
                         ],
@@ -111,7 +116,8 @@ class _GirisEkraniState extends State<GirisEkrani> {
   }
 
 // eamil ve sifre icin
-  Widget field(Size size, String label, IconData icon, TextEditingController controller) {
+  Widget field(Size size, String label, IconData icon,
+      TextEditingController controller) {
     return Container(
       height: size.height / 15,
       width: size.width / 1.1,
@@ -131,28 +137,30 @@ class _GirisEkraniState extends State<GirisEkrani> {
 
   Widget customButton(Size size) {
     return GestureDetector(
-      onTap: (){
-        if(_email.text.isNotEmpty &&_password.text.isNotEmpty){
+      onTap: () {
+        if (_email.text.isNotEmpty && _password.text.isNotEmpty) {
           setState(() {
             isLoading = true;
           });
-          logIn(_email.text, _password.text).then((user){ // metottan gelen user bilgileri
-              if(user != Null){ //  metot user bilgileri dondurdu ise demeki login islemi basardi
-                      print("giris islemi basaridi");
-                      setState(() {
-                        isLoading = false;
-                      });
-                        Navigator.push(context, MaterialPageRoute(builder:(_) => AnaEkran()));
-              }//if 
-              else{
-                print("giris islemi basarsiz");
-                setState(() {
-                  isLoading = false;
-                });
-              }
+          logIn(_email.text, _password.text).then((user) {
+            // metottan gelen user bilgileri
+            if (user != Null) {
+              //  metot user bilgileri dondurdu ise demeki login islemi basardi
+              print("giris islemi basaridi");
+              setState(() {
+                isLoading = false;
+              });
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => AnaEkran()));
+            } //if
+            else {
+              print("giris islemi basarsiz");
+              setState(() {
+                isLoading = false;
+              });
+            }
           });
-
-        }else{
+        } else {
           print("lutfen alanlari doldurun");
         }
       },

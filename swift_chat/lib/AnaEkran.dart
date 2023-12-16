@@ -13,21 +13,44 @@ class AnaEkran extends StatefulWidget {
   State<AnaEkran> createState() => _AnaEkranState();
 }
 
-class _AnaEkranState extends State<AnaEkran> {
+class _AnaEkranState extends State<AnaEkran> with WidgetsBindingObserver {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Map<String, dynamic>? userMap;
   bool isLoading = false;
   final TextEditingController _search = TextEditingController();
 
-   String chatRoomId(String user1, String user2) {
+  String chatRoomId(String user1, String user2) {
     if (user1[0].toLowerCase().codeUnits[0] >
         user2.toLowerCase().codeUnits[0]) {
       return "$user1$user2";
     } else {
       return "$user2$user1";
-    
-   }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    setStatus("offline");
+  }
+
+  void setStatus(String status) async {
+    await _firestore.collection('users').doc(_auth.currentUser!.uid).update({
+      "status": status,
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // online
+      setStatus("Online");
+    } else {
+      // offline
+      setStatus("Offline");
+    }
   }
 
   void onSearch() async {
@@ -63,7 +86,8 @@ class _AnaEkranState extends State<AnaEkran> {
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
-              Navigator.pop(context, MaterialPageRoute(builder: (_) => GirisEkrani()));
+              Navigator.pop(
+                  context, MaterialPageRoute(builder: (_) => GirisEkrani()));
             },
           ),
         ],
@@ -114,19 +138,18 @@ class _AnaEkranState extends State<AnaEkran> {
                 if (userMap != null)
                   ListTile(
                     onTap: () {
-                          String roomId = chatRoomId(
-                              _auth.currentUser!.displayName!,
-                              userMap!['name']);
+                      String roomId = chatRoomId(
+                          _auth.currentUser!.displayName!, userMap!['name']);
 
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => SohbetOdasi(
-                                chatRoomId: roomId,
-                                userMap: userMap!,
-                              ),
-                            ),
-                          );
-                        },
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => SohbetOdasi(
+                            chatRoomId: roomId,
+                            userMap: userMap!,
+                          ),
+                        ),
+                      );
+                    },
                     leading: Icon(
                       Icons.account_box,
                       color: Colors.black,
