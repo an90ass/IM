@@ -3,8 +3,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:swift_chat/GirisEkrani.dart';
 import 'package:swift_chat/Methods.dart';
+<<<<<<< Updated upstream
 import 'package:swift_chat/SohbetOdasi.dart';
+=======
+>>>>>>> Stashed changes
 
 class AnaEkran extends StatefulWidget {
   const AnaEkran({super.key});
@@ -59,10 +63,36 @@ class _AnaEkranState extends State<AnaEkran> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+<<<<<<< Updated upstream
     return Scaffold(
       appBar: AppBar(title: Text("Ana Sayfa")),
       body: isLoading
           ? Center(
+=======
+    return  Scaffold(
+      appBar: AppBar(title: Text("Ana Sayfa"),  actions: [
+        IconButton(
+  icon: Icon(Icons.logout),
+  onPressed: () {
+    // Çıkış işlemi gerçekleştikten sonra giriş ekranına geri dön
+    Navigator.pop(context, MaterialPageRoute(builder: (_) => GirisEkrani()));
+  },
+),
+          
+        ],
+      ),
+      body: isLoading?Center(child: Container(
+        height: size.height/20,
+        width: size.width/20,
+        child: CircularProgressIndicator(),
+      ),): Column(children: [
+            SizedBox(
+                height: size.height/20,//ekran ustunden
+            ),
+            Container(
+              height: size.height/14,
+              width: size.width,
+>>>>>>> Stashed changes
               child: Container(
                 height: size.height / 20,
                 width: size.width / 20,
