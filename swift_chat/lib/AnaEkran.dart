@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_chat/GirisEkrani.dart';
+import 'package:swift_chat/GrupSohbetAna.dart';
 import 'package:swift_chat/Methods.dart';
 import 'package:swift_chat/SohbetOdasi.dart';
 
@@ -170,6 +171,13 @@ class _AnaEkranState extends State<AnaEkran> with WidgetsBindingObserver {
                 else
                   Container(),
               ],
+            ),
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.group),
+              onPressed: () =>Navigator.of(context).push(MaterialPageRoute(builder: 
+              (_) => GrubSohbetAna(),
+              ),
+             ),
             ),
     );
   }
