@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:swift_chat/GrubSohbetOdasi2.dart';
+import 'package:swift_chat/add_members.dart';
 
 class GrubSohbetAna extends StatefulWidget {
   const GrubSohbetAna({super.key});
@@ -17,7 +18,7 @@ class _GrubSohbetAnaState extends State<GrubSohbetAna> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Grublar"),
+        title: Text("Gruplar"),
       ),
       body: ListView.builder(
         itemCount: 5,
@@ -33,8 +34,10 @@ class _GrubSohbetAnaState extends State<GrubSohbetAna> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.create),
-        onPressed: () {},
-        tooltip: "Grub Yarat",
+        onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: 
+        (_) =>AddMembersInGroup()
+        ),),
+        tooltip: "Grup olustur",
       ),
     );
   }

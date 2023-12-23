@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:swift_chat/group_info.dart';
 
 class GrubSohbetOdasi2 extends StatelessWidget {
   GrubSohbetOdasi2({super.key});
@@ -13,26 +14,30 @@ class GrubSohbetOdasi2 extends StatelessWidget {
   String current = "user1";
 
   List<Map<String, dynamic>> dummyChatList = [
-    {"message": "User1 created this Grup", "type": "notify"},
+    {"message": "User1 bu grup oluşturuldu", "type": "notify"},
     {
       "message": "hello",
-      "userName": "user1",
+      "sendBy": "user1",
       "type": "text",
     },
     {
       "message": "hello",
-      "userName": "user2",
+      "sendBy": "user2",
       "type": "text",
     },
     {
       "message": "hello",
-      "userName": "user2",
+      "sendBy": "user2",
       "type": "text",
     },
     {
       "message": "hello",
-      "userName": "user4",
+      "sendBy": "user4",
       "type": "text",
+    },
+    {
+    "message": "User1 User8  gruba ekledi", "type": "notify",
+
     }
   ];
 
@@ -41,9 +46,11 @@ class GrubSohbetOdasi2 extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Grub Ad"),
+        title: Text("Grup Adı"),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
+          IconButton(onPressed: () =>Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => GroupInfo(),)
+          ), icon: Icon(Icons.more_vert)),
         ],
       ),
       body: SingleChildScrollView(
@@ -75,10 +82,7 @@ class GrubSohbetOdasi2 extends StatelessWidget {
                       child: TextField(
                         controller: _message,
                         decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.photo),
-                          ),
+                         
                           hintText: "mesaj gonder",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -140,21 +144,21 @@ class GrubSohbetOdasi2 extends StatelessWidget {
                 ],
               )),
         );
-      } else if (chatMap['type'] == "img") {
-        return Container(
-          width: size.width,
-          alignment: chatMap['sendBy'] == _auth.currentUser!.displayName
-              ? Alignment.centerRight
-              : Alignment.centerLeft,
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
-            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-            height: size.height / 2,
-            child: Image.network(
-              chatMap['message'],
-            ),
-          ),
-        );
+      // } else if (chatMap['type'] == "img") {
+      //   return Container(
+      //     width: size.width,
+      //     alignment: chatMap['sendBy'] == current
+      //         ? Alignment.centerRight
+      //         : Alignment.centerLeft,
+      //     child: Container(
+      //       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+      //       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+      //       height: size.height / 2,
+      //       child: Image.network(
+      //         chatMap['message'],
+      //       ),
+      //     ),
+      //   );}
       } else if (chatMap['type'] == "notify") {
         return Container(
           width: size.width,
