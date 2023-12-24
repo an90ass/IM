@@ -34,11 +34,11 @@ class _AnaEkranState extends State<AnaEkran> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    setStatus("offline");
+    setStatus("online");
   }
 
   void setStatus(String status) async {
-    await _firestore.collection('users').doc(_auth.currentUser!.uid).update({
+    await _firestore.collection('users').doc(_auth.currentUser?.uid).update({
       "status": status,
     });
   }
@@ -87,6 +87,7 @@ class _AnaEkranState extends State<AnaEkran> with WidgetsBindingObserver {
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
+              setStatus("offline");
               Navigator.pop(
                   context, MaterialPageRoute(builder: (_) => GirisEkrani()));
             },
@@ -172,13 +173,14 @@ class _AnaEkranState extends State<AnaEkran> with WidgetsBindingObserver {
                   Container(),
               ],
             ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.group),
-              onPressed: () =>Navigator.of(context).push(MaterialPageRoute(builder: 
-              (_) => GrubSohbetAna(),
-              ),
-             ),
-            ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.group),
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => GrubSohbetAna(),
+          ),
+        ),
+      ),
     );
   }
 }
