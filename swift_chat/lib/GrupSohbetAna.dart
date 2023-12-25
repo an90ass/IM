@@ -70,7 +70,11 @@ class _GrubSohbetAnaState extends State<GrubSohbetAna> {
         itemBuilder: (context, index) {
           return ListTile(
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => GrubSohbetOdasi2(),
+              builder: (_) => GrubSohbetOdasi2(
+                groupName: groupList[index]['name'],
+                groupChatId: groupList[index]['id'],
+
+              ),
             )),
             leading: Icon(Icons.group),
             title: Text(groupList[index]['name']),

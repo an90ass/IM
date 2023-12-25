@@ -6,47 +6,74 @@ import 'package:flutter/material.dart';
 import 'package:swift_chat/group_info.dart';
 
 class GrubSohbetOdasi2 extends StatelessWidget {
-  GrubSohbetOdasi2({super.key});
+    final String groupChatId, groupName;
+
+  GrubSohbetOdasi2({required this.groupName, required this.groupChatId, Key? key})
+      : super(key: key);
+
+
+  //
+  
 
   final TextEditingController _message = TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   FirebaseAuth get _auth => FirebaseAuth.instance;
-  String current = "user1";
+  // String current = "user1";
 
-  List<Map<String, dynamic>> dummyChatList = [
-    {"message": "User1 bu grup oluşturuldu", "type": "notify"},
-    {
-      "message": "hello",
-      "sendBy": "user1",
-      "type": "text",
-    },
-    {
-      "message": "hello",
-      "sendBy": "user2",
-      "type": "text",
-    },
-    {
-      "message": "hello",
-      "sendBy": "user2",
-      "type": "text",
-    },
-    {
-      "message": "hello",
-      "sendBy": "user4",
-      "type": "text",
-    },
-    {
-    "message": "User1 User8  gruba ekledi", "type": "notify",
+  // List<Map<String, dynamic>> dummyChatList = [
+  //   {"message": "User1 bu grup oluşturuldu", "type": "notify"},
+  //   {
+  //     "message": "hello",
+  //     "sendBy": "user1",
+  //     "type": "text",
+  //   },
+  //   {
+  //     "message": "hello",
+  //     "sendBy": "user2",
+  //     "type": "text",
+  //   },
+  //   {
+  //     "message": "hello",
+  //     "sendBy": "user2",
+  //     "type": "text",
+  //   },
+  //   {
+  //     "message": "hello",
+  //     "sendBy": "user4",
+  //     "type": "text",
+  //   },
+  //   {
+  //   "message": "User1 User8  gruba ekledi", "type": "notify",
 
+  //   }
+  // ];
+
+  void onSendMessage() async {
+    if (_message.text.isNotEmpty) {
+      Map<String, dynamic> chatData = {
+        "sendBy": _auth.currentUser!.displayName,
+        "message": _message.text,
+        "type": "text",
+        "time": FieldValue.serverTimestamp(),
+      };
+
+      _message.clear();
+
+      await _firestore
+          .collection('groups')
+          .doc(groupChatId)
+          .collection('chats')
+          .add(chatData);
     }
-  ];
+  }
+  
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Grup Adı"),
+        title: Text(groupName),
         actions: [
           IconButton(onPressed: () =>Navigator.of(context).push(
             MaterialPageRoute(builder: (_) => GroupInfo(),)
@@ -59,10 +86,28 @@ class GrubSohbetOdasi2 extends StatelessWidget {
             Container(
               height: size.height / 1.27,
               width: size.width,
-              child: ListView.builder(
-                itemCount: dummyChatList.length,
-                itemBuilder: (context, index) {
-                  return messageTile(size, dummyChatList[index]);
+              child: StreamBuilder<QuerySnapshot>(
+                stream: _firestore
+                    .collection('groups')
+                    .doc(groupChatId)
+                    .collection('chats')
+                    .orderBy('time')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        Map<String, dynamic> chatMap =
+                            snapshot.data!.docs[index].data()
+                                as Map<String, dynamic>;
+
+                        return messageTile(size, chatMap);
+                      },
+                    );
+                  } else {
+                    return Container(); // if there is no data
+                  }
                 },
               ),
             ),
@@ -94,7 +139,7 @@ class GrubSohbetOdasi2 extends StatelessWidget {
                     IconButton(
                         icon: Icon(Icons.send),
                         color: Colors.blue,
-                        onPressed: () {}),
+                        onPressed:onSendMessage),
                   ],
                 ),
               ),
@@ -110,7 +155,7 @@ class GrubSohbetOdasi2 extends StatelessWidget {
       if (chatMap['type'] == "text") {
         return Container(
           width: size.width,
-          alignment: chatMap['sendBy'] == current
+          alignment: chatMap['sendBy'] == _auth.currentUser!.displayName
               ? Alignment.centerRight
               : Alignment.centerLeft,
           child: Container(

@@ -27,6 +27,15 @@ class _GrouplarOlusturmaState extends State<GrouplarOlusturma> {
       isLoading = true;
     });
     String groupId = Uuid().v1();
+
+await _firestore.collection('groups').doc(groupId).collection('chats').add({
+      "message": "${_auth.currentUser!.displayName} bu grup olusturuldu.",
+      "type": "notify",
+    });
+
+
+
+    
     await _firestore
         .collection('groups')
         .doc(groupId)
