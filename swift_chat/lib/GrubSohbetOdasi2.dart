@@ -76,7 +76,10 @@ class GrubSohbetOdasi2 extends StatelessWidget {
         title: Text(groupName),
         actions: [
           IconButton(onPressed: () =>Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => GroupInfo(),)
+            MaterialPageRoute(builder: (_) => GroupInfo(
+              groupName: groupName,
+              groupId: groupChatId,
+            ),)
           ), icon: Icon(Icons.more_vert)),
         ],
       ),
