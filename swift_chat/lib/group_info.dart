@@ -56,6 +56,46 @@ class _GroupInfoState extends State<GroupInfo> {
     return isAdmin;
   }
 
+  // Future removeMembers(int index) async {
+  //   String uid = membersList[index]['uid'];
+
+  //   setState(() {
+  //     isLoading = true;
+  //     membersList.removeAt(index);
+  //   });
+
+  //   await _firestore.collection('groups').doc(widget.groupId).update({
+  //     "members": membersList,
+  //   }).then((value) async {
+  //     await _firestore
+  //         .collection('users')
+  //         .doc(uid)
+  //         .collection('groups')
+  //         .doc(widget.groupId)
+  //         .delete();
+
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   });
+  // }
+
+  // void showDialogBox(int index) {
+  //   if (checkAdmin()) {
+  //     if (_auth.currentUser!.uid != membersList[index]['uid']) {
+  //       showDialog(
+  //           context: context,
+  //           builder: (context) {
+  //             return AlertDialog(
+  //               content: ListTile(
+  //                 onTap: () => removeMembers(index),
+  //                 title: Text("Bu Üyeyi Kaldır"),
+  //               ),
+  //             );
+  //           });
+  //     }
+  //   }
+  // }
 
    void onLeaveGroup() async {
     if (!checkAdmin()) {
@@ -164,7 +204,7 @@ class _GroupInfoState extends State<GroupInfo> {
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return ListTile(
-                      onTap: () {} ,//showDialogBox(index)
+                      onTap: () {},//showDialogBox(index)
                       leading: Icon(Icons.account_circle,size: 36,),
                       title: Text(
                         membersList[index]['name'],
