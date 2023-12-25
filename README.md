@@ -20,6 +20,9 @@
 ![WhatsApp Image 2023-12-25 at 4 50 13 AM](https://github.com/an90ass/Guz2023_BSM307_BM_25/assets/91754070/ed19cad8-5148-44bd-8f46-0c5e4fe0f3e0)
 ## Gruptan çıktıktan sonra
 ![WhatsApp Image 2023-12-25 at 4 50 13 AM (1)](https://github.com/an90ass/Guz2023_BSM307_BM_25/assets/91754070/b5e5640b-1c88-4cf6-8b62-c77558560190)
+## Üyeyi ismine ve ardından bu mesaja tıklayarak silebilirsiniz.
+![WhatsApp Image 2023-12-25 at 5 19 39 AM](https://github.com/an90ass/Guz2023_BSM307_BM_25/assets/91754070/4561eeee-cde2-4c6f-91b0-e4b2f87f917c)
+
 
 
 
