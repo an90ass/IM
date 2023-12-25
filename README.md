@@ -14,5 +14,14 @@
 
 ## Anas almaqtari adlı kişinin ekranı
 ![WhatsApp Image 2023-12-17 at 1 40 04 AM](https://github.com/an90ass/Guz2023_BSM307_BM_25/assets/91754070/bca69361-7f99-4e09-b330-d7cb895b2488)
+## Grup sohbet ekrani
+![WhatsApp Image 2023-12-25 at 4 52 14 AM](https://github.com/an90ass/Guz2023_BSM307_BM_25/assets/91754070/31daf8a0-d50d-4a67-94a0-b52213d8a621)
+## Gruptan çıkmadan önce
+![WhatsApp Image 2023-12-25 at 4 50 13 AM](https://github.com/an90ass/Guz2023_BSM307_BM_25/assets/91754070/ed19cad8-5148-44bd-8f46-0c5e4fe0f3e0)
+## Gruptan çıktıktan sonra
+![WhatsApp Image 2023-12-25 at 4 50 13 AM (1)](https://github.com/an90ass/Guz2023_BSM307_BM_25/assets/91754070/b5e5640b-1c88-4cf6-8b62-c77558560190)
+
+
+
 
 
