@@ -10,7 +10,7 @@ class GrubSohbetOdasi2 extends StatelessWidget {
 
   GrubSohbetOdasi2({required this.groupName, required this.groupChatId, Key? key})
       : super(key: key);
-
+ 
 
   //
   
